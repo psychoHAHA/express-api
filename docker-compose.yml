@@ -1,0 +1,51 @@
+# # version: '3'
+# services:
+#   express-app:
+#     build: .
+#     ports:
+#       - '3000:3000'
+#     depends_on:
+#       - db
+#       - react-app
+#     environment:
+#       DATABASE_URL: "mongodb://user:password@db:27017/mydatabase?authSource=admin&directConnection=true"
+#   db:
+#     image: prismagraphql/mongo-single-replica:5.0.3
+#     ports:
+#       - '27017:27018'
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: user
+#       MONGO_INITDB_ROOT_PASSWORD: password
+
+#   react-app:
+#     build: ../react-client
+#     ports:
+#       - '80:80'
+#       - '8000:8000'
+
+# version: '3' # версия синтаксиса
+services:
+ express-app: # Сервер Express
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+      - react-app
+    environment:
+      DATABASE_URL: 'mongodb://user:password@db:27017/mydatabase?authSource=admin&directConnection=true'
+ db: # База данных
+    image: prismagraphql/mongo-single-replica:5.0.3
+    ports:
+      - '27017:27018'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+ react-app: # React-приложение
+    build: ../react-client # Путь к вашему React-приложению относительно корня вашего проекта
+    ports:
+      - '80:80' # Порт, на котором будет доступно ваше React-приложение
+      - '8000:8000' # Порт, на котором будет доступно ваше React-приложение
+
+
+  
